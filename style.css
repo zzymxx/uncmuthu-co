@@ -1,0 +1,159 @@
+/* Palet: ubah warna di sini saja */
+:root {
+    --bg: #F9F7F7;
+    --soft: #DBE2EF;
+    --primary: #3F72AF;
+    --ink: #112D4E;
+    --surface: #ffffff;
+    --muted: rgb(17 45 78 / .65);
+    --container: min(1160px, calc(100% - 44px));
+    --header-h: 72px;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+@media (max-width: 640px) {
+    :root {
+        --container: min(1160px, calc(100% - 36px));
+        --header-h: 64px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.wrap {
+    width: var(--container);
+    margin: 0 auto;
+}
+
+.hero {
+    padding: 45px 0 0;
+    text-align: center;
+}
+
+.page-head {
+    padding: 36px 0 12px;
+}
+
+h1 {
+    margin: 0 0 16px;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -.04em;
+}
+
+.lead {
+    margin: 9px 0 0;
+    color: var(--muted);
+}
+
+.empty {
+    padding: 48px 0;
+    color: var(--muted);
+}
+
+/* Halaman menu */
+section {
+    padding-top: 28px;
+    scroll-margin-top: calc(var(--header-h) + 72px);
+}
+
+h2 {
+    margin: 0 0 14px;
+    font-size: 1.25rem;
+    letter-spacing: -.02em;
+}
+
+.menu-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.menu-grid li {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--soft);
+    border-radius: 14px;
+    background: var(--surface);
+}
+
+.ph {
+    flex: none;
+    width: 68px;
+    height: 68px;
+    border-radius: 10px;
+    background: var(--soft);
+    object-fit: cover;
+}
+
+.info {
+    min-width: 0;
+}
+
+.name {
+    font-size: .9375rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--soft);
+    font-size: .6875rem;
+    font-weight: 600;
+}
+
+.price {
+    margin-top: 6px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.price s {
+    margin-left: 8px;
+    font-size: .8125rem;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+main.wrap:not(.pk-grid) {
+    padding-bottom: 45px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
