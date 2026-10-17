@@ -1,5 +1,7 @@
 const rp = n => 'Rp' + n.toLocaleString('id-ID');
 const num = v => Number(String(v || '').replace(/\D/g, ''));
+const SATUAN_NOTE = 'Menu bertanda “Bisa satuan” boleh dibeli 1 item saja.';
+const isSatuan = r => r.satuan?.toLowerCase() === 'ya';
 const ACTIVE = 'tab-buttons-v1__button--active';
 
 function itemEl(r) {
@@ -14,6 +16,7 @@ function itemEl(r) {
     const info = el('div', 'info');
     info.append(el('div', 'name', r.nama));
     if (r.label) info.append(el('div', 'badge', r.label));
+    if (isSatuan(r)) info.append(el('div', 'badge badge--solo', 'Bisa satuan'));
     info.append(price);
 
     const li = el('li');
@@ -65,6 +68,15 @@ function setupScrollSpy() {
     document.querySelectorAll('#main section').forEach(s => io.observe(s));
 }
 
+// Teks popup dari kolom `info` (baris pertama yang terisi per brand)
+function showBrandNotice(rows) {
+    const info = rows.map(r => r.info).find(Boolean);
+    if (!info) return;
+    const lines = info.split('\n').map(s => s.trim()).filter(Boolean);
+    if (rows.some(isSatuan)) lines.push(SATUAN_NOTE);
+    showNotice('Ketentuan order', lines);
+}
+
 renderHeader();
 loadMenu()
     .then(rows => {
@@ -77,5 +89,6 @@ loadMenu()
         renderMenu(brand, groupBy(brands.get(brand).filter(isVisible), r => r.kategori || 'Lainnya'));
         $('search').replaceChildren(searchBox(filterMenu));
         setupScrollSpy();
+        showBrandNotice(brands.get(brand));
     })
     .catch(showError);
